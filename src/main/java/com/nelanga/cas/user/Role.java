@@ -1,6 +1,6 @@
 package com.nelanga.cas.user;
 
-import com.nelanga.cas.commons.RoleType;
+import com.nelanga.cas.commons.enums.RoleType;
 
 import javax.persistence.*;
 

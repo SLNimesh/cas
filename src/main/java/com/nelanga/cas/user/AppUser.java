@@ -1,6 +1,6 @@
 package com.nelanga.cas.user;
 
-import com.nelanga.cas.commons.SignInMethod;
+import com.nelanga.cas.commons.enums.SignInMethod;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
