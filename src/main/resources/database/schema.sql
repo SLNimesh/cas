@@ -30,3 +30,5 @@ CREATE TABLE auth.user_roles(
 	FOREIGN KEY (user_id) REFERENCES auth.users(id),
 	FOREIGN KEY (role_id) REFERENCES auth.roles(id)
 );
+
+ALTER TABLE auth.users ADD COLUMN user_type VARCHAR(24) NOT NULL;
