@@ -4,7 +4,9 @@ import com.nelanga.cas.auth.SignUpRequest;
 import com.nelanga.cas.commons.enums.RoleType;
 import com.nelanga.cas.commons.enums.SignInMethod;
 import com.nelanga.cas.commons.user.AppUserDTO;
-import com.nelanga.cas.jwt.JwtUtil;
+import com.nelanga.cas.exception.types.EmailInUseException;
+import com.nelanga.cas.exception.types.UsernameTakenException;
+import com.nelanga.cas.utility.CreateJwtUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,19 +19,18 @@ public class AppUserManagementService {
 
     private PasswordEncoder passwordEncoder;
     private UserRepository userRepository;
-    private JwtUtil jwtUtil;
+    private CreateJwtUtil jwtUtil;
 
     @Autowired
     public AppUserManagementService(PasswordEncoder passwordEncoder,
                                     UserRepository userRepository,
-                                    JwtUtil jwtUtil) {
+                                    CreateJwtUtil jwtUtil) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.jwtUtil = jwtUtil;
     }
 
-    @Transactional
-    public AppUserDTO signUpAppUser(SignUpRequest signUpRequest) {
+    public AppUser createAppUser(SignUpRequest signUpRequest) {
         AppUser newUser = new AppUser();
         BeanUtils.copyProperties(signUpRequest, newUser, "password");
 
@@ -37,11 +38,22 @@ public class AppUserManagementService {
         newUser.setSignIn(SignInMethod.SYSTEM);
         newUser.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
 
-        AppUser savedUser = userRepository.save(newUser);
+        return userRepository.save(newUser);
+    }
 
-        AppUserDTO newUserDTO = new AppUserDTO();
-        BeanUtils.copyProperties(savedUser, newUserDTO);
-        return newUserDTO;
+    @Transactional
+    public AppUserDTO signUpAppUser(SignUpRequest signUpRequest) {
+
+        if (userRepository.existsByEmail(signUpRequest.getEmail())) {
+            throw new EmailInUseException();
+        }
+        if (userRepository.existsByUsername(signUpRequest.getUsername())) {
+            throw new UsernameTakenException();
+        }
+
+        AppUser savedUser = createAppUser(signUpRequest);
+
+        return GenericUserBuilder.buildUserDTO(savedUser);
     }
 
 }

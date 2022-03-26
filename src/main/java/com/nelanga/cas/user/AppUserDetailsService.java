@@ -20,6 +20,6 @@ public class AppUserDetailsService implements UserDetailsService {
         *  NOTE: Email and password is used for authentication
         * */
         AppUser user = userRepository.findByEmail(email).orElseThrow(AuthFailedException::new);
-        return AppUserDetails.build(user);
+        return GenericUserBuilder.buildUserDetails(user);
     }
 }

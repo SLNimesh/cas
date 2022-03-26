@@ -1,6 +1,6 @@
 package com.nelanga.cas.commons.exception;
 
-import com.nelanga.cas.commons.enums.ServiceError;
+import com.nelanga.cas.commons.enums.ServiceErrorType;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
@@ -12,7 +12,7 @@ public class ServiceException extends RuntimeException {
      * */
     static final long serialVersionUID = 789456123L;
 
-    static final ServiceError error = ServiceError.UNIDENTIFIED;
+    static final ServiceErrorType error = ServiceErrorType.UNIDENTIFIED;
 
     private final HttpStatus httpStatus;
     private final Integer errorCode;

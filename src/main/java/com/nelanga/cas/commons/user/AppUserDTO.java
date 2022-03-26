@@ -1,6 +1,7 @@
 package com.nelanga.cas.commons.user;
 
 import com.nelanga.cas.commons.enums.RoleType;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,9 +11,9 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class AppUserDTO {
 
-    private Long id;
     private String firstname;
     private String lastname;
     private String username;

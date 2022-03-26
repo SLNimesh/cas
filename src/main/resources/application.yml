@@ -12,6 +12,17 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         jdbc.lob.non_contextual_creation: true
 
+domain: "ourbrandname.com"
+
+jwt:
+  tokenName: "Bearer"
+  keys:
+    private: "Private key"
+    public: "Public key"
+  lifetime: 24 # hours
+  claims:
+    roles: "ROLES"
+
 springdoc:
   api-docs:
     path: /api/v1/api-docs

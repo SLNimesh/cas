@@ -1,6 +1,6 @@
 package com.nelanga.cas.commons.enums;
 
-public enum ServiceError {
+public enum ServiceErrorType {
 
     /*
     * TODO: Complete list of errorCodes
@@ -11,12 +11,14 @@ public enum ServiceError {
     CAS_ERROR(10, "Something went wrong in Authentication System"),
     AUTH_FAILED(11, "Authentication Failed"),
 
-    USER_NOT_FOUND(41, "Failed to identify user");
+    USER_NOT_FOUND(41, "Failed to identify user"),
+    EMAIL_IN_USE(42, "Email already in use. Please sign in"),
+    USERNAME_TAKEN(43, "Username already taken. Please try a different one");
 
     private final Integer errorCode;
     private final String errorMessage;
 
-    ServiceError(Integer errorCode, String message) {
+    ServiceErrorType(Integer errorCode, String message) {
         this.errorCode = errorCode;
         this.errorMessage = message;
     }
