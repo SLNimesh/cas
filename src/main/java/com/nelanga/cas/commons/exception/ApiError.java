@@ -16,7 +16,7 @@ public class ApiError {
     private final LocalDateTime timestamp;
     private Integer errorCode;
     private String message;
-    private List<SubError> subErrors;
+    private final List<SubError> subErrors;
 
     public ApiError() {
         this.timestamp = LocalDateTime.now();
@@ -32,5 +32,9 @@ public class ApiError {
         this.responseStatus = responseStatus;
         this.message = message;
         this.errorCode = errorCode;
+    }
+
+    public void addSubErrors(List<SubError> subErrors) {
+        this.subErrors.addAll(subErrors);
     }
 }
