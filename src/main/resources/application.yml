@@ -1,16 +1,32 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/cas
-    username: postgres
-    password: toor
-    driverClassName: org.postgresql.Driver
+    url:  jdbc:h2:file:./src/main/resources/database/db;DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL;INIT=CREATE SCHEMA IF NOT EXISTS auth
+    username: sa
+    password: password
+    driverClassName: org.h2.Driver
   jpa:
-    hibernate.ddl-auto: validate  # What to do with existing schema
-    show-sql: true  # logging for sql statements
+    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
+    hibernate.ddl-auto: update
+    show-sql: true
     properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-        jdbc.lob.non_contextual_creation: true
+          hibernate:
+            jdbc.lob.non_contextual_creation: true
+  h2:
+    console.enabled: true
+
+#spring:
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/cas
+#    username: postgres
+#    password: toor
+#    driverClassName: org.postgresql.Driver
+#  jpa:
+#    hibernate.ddl-auto: validate  # What to do with existing schema
+#    show-sql: true  # logging for sql statements
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.PostgreSQLDialect
+#        jdbc.lob.non_contextual_creation: true
 
 domain: "ourbrandname.com"
 
