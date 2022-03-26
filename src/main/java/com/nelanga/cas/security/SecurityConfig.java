@@ -35,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final RequestMatcher PUBLIC_PATHS = new OrRequestMatcher(
             new AntPathRequestMatcher("/api/v1/auth/**"),
-            new AntPathRequestMatcher("/api/v1/test/**")
+            new AntPathRequestMatcher("/api/test/**")
     );
 
     /*

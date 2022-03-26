@@ -16,9 +16,12 @@ public class ReadCookieUtil {
     }
 
     public Optional<String> readServletCookie(HttpServletRequest request, String cookieName) {
-        return Arrays.stream(request.getCookies())
-                .filter(cookie -> cookie.getName().equals(cookieName))
-                .map(cookie -> cookie.getValue())
-                .findAny();
+        if (request.getCookies() != null) {
+            return Arrays.stream(request.getCookies())
+                    .filter(cookie -> cookie.getName().equals(cookieName))
+                    .map(cookie -> cookie.getValue())
+                    .findAny();
+        }
+        return Optional.empty();
     }
 }
