@@ -32,6 +32,9 @@ domain: "ourbrandname.com"
 
 jwt:
   tokenName: "Bearer"
+  issuer: "cas.ourbrandname.com"
+  secret: "SJ/0nkbdrSukzOKpJC8+i9r2DDoLgskqfH0bGiJt8pk=" # base64 encoded
+#  TODO: Go with asymmetric approach
   keys:
     private: "Private key"
     public: "Public key"
@@ -41,7 +44,6 @@ jwt:
 
 springdoc:
   api-docs:
-    path: /api/v1/api-docs
+    path: "/api/v1/docs/api-docs"
   swagger-ui:
-    path: /api/v1/swagger-ui.html
-    layout:
+    path: "/api/v1/docs/swagger-ui.html"

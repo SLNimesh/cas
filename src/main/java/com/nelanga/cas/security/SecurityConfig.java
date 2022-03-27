@@ -3,6 +3,7 @@ package com.nelanga.cas.security;
 
 import com.nelanga.cas.commons.security.JwtAuthEntryPoint;
 import com.nelanga.cas.commons.security.JwtFilter;
+import com.nelanga.cas.config.SwaggerConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -38,6 +39,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             new AntPathRequestMatcher("/api/test/**")
     );
 
+    private static final RequestMatcher API_DOCS = SwaggerConfig.swaggerPaths();
+
     /*
     * Authentication config
     * */
@@ -54,13 +57,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors()
                 .and()
                 .csrf().disable()
+                .headers().frameOptions().disable().and() // TODO: Remove when H2 is not needed
                 .formLogin().disable()
                 .logout().disable()
                 .exceptionHandling().authenticationEntryPoint(authEntryPoint)
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .authorizeRequests().requestMatchers(PUBLIC_PATHS).permitAll()
+                .authorizeRequests()
+                .requestMatchers(PUBLIC_PATHS).permitAll()
+                .requestMatchers(API_DOCS).permitAll()
                 .anyRequest().authenticated();
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
