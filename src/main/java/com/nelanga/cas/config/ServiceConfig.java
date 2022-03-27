@@ -18,8 +18,8 @@ public class ServiceConfig {
     @Value("${jwt.tokenName}")
     private String JWT_COOKIE;
 
-    @Value("${jwt.keys.public}")
-    private String PUBLIC_KEY;
+    @Value("${jwt.secret}")
+    private String SECRET_KEY_STRING;
 
     @Value("${jwt.claims.roles}")
     private String CLAIM_ROLES;
@@ -46,6 +46,6 @@ public class ServiceConfig {
 
     @Bean
     public ValidateJwtUtil validateJwtUtil() {
-        return new ValidateJwtUtil(PUBLIC_KEY, CLAIM_ROLES);
+        return new ValidateJwtUtil(SECRET_KEY_STRING, CLAIM_ROLES);
     }
 }

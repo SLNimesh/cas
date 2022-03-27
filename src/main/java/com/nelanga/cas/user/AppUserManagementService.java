@@ -13,6 +13,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class AppUserManagementService {
@@ -20,23 +22,29 @@ public class AppUserManagementService {
     private PasswordEncoder passwordEncoder;
     private UserRepository userRepository;
     private CreateJwtUtil jwtUtil;
+    private RoleRepository roleRepository;
 
     @Autowired
     public AppUserManagementService(PasswordEncoder passwordEncoder,
                                     UserRepository userRepository,
+                                    RoleRepository roleRepository,
                                     CreateJwtUtil jwtUtil) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
         this.jwtUtil = jwtUtil;
     }
 
     public AppUser createAppUser(SignUpRequest signUpRequest) {
         AppUser newUser = new AppUser();
+        Set<Role> userRoles = new HashSet<>();
         BeanUtils.copyProperties(signUpRequest, newUser, "password");
+        userRoles.add(roleRepository.findByRoleName(RoleType.ROLE_USER));
 
         newUser.setUserType(RoleType.ROLE_USER);
         newUser.setSignIn(SignInMethod.SYSTEM);
         newUser.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
+        newUser.setRoles(userRoles);
 
         return userRepository.save(newUser);
     }

@@ -20,13 +20,13 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class ValidateJwtUtil {
 
-    private String PUBLIC_KEY;
+    private String SECRET_KEY;
     private String CLAIM_ROLES;
 
     public AppUserDetails parseToken(String jwt) {
         try {
             Jws<Claims> claimsJws = Jwts.parserBuilder()
-                    .setSigningKey(PUBLIC_KEY)
+                    .setSigningKey(SECRET_KEY)
                     .build()
                     .parseClaimsJws(jwt);
             String subject = claimsJws.getBody().getSubject();
