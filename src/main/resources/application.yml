@@ -14,20 +14,6 @@ spring:
   h2:
     console.enabled: true
 
-#spring:
-#  datasource:
-#    url: jdbc:postgresql://localhost:5432/cas
-#    username: postgres
-#    password: toor
-#    driverClassName: org.postgresql.Driver
-#  jpa:
-#    hibernate.ddl-auto: validate  # What to do with existing schema
-#    show-sql: true  # logging for sql statements
-#    properties:
-#      hibernate:
-#        dialect: org.hibernate.dialect.PostgreSQLDialect
-#        jdbc.lob.non_contextual_creation: true
-
 domain: "ourbrandname.com"
 
 jwt:
